@@ -39,8 +39,11 @@ func Eval(cards ...Card) (Hand, error) {
 	}
 
 	tp := HandType(p >> 12)
-	if tp == 0 {
+	switch tp {
+	case 0:
 		return Hand{}, errors.New("wrong cards")
+	case 5, 6, 9:
+		tp = 1
 	}
 
 	rank := p & 0x00000fff
